@@ -1,11 +1,8 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
-import { Avatar, Box, Button, CssBaseline, Grid, IconButton, List, ListItem, ListItemButton, ListItemContent, ListItemDecorator, Sheet, Typography } from "@mui/joy";
-import { AccountCircleOutlined, KeyboardArrowRight, Logout, People, Task } from "@mui/icons-material";
+import { useLocation } from "react-router-dom";
+import { Avatar, Box, List, ListItem, ListItemContent, ListItemDecorator, Typography } from "@mui/joy";
 
-import ModeToggle from "../components/ModeToggle";
 
 const Users = ({ navigate }) => {
     const axiosPrivate = useAxiosPrivate();

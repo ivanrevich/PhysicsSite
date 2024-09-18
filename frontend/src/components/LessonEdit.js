@@ -1,9 +1,8 @@
-import { Container, Divider, FormControl, FormLabel, Sheet, Typography } from "@mui/joy"
+import { Sheet, Typography } from "@mui/joy"
 import { Box, Button, Input, Stack, Tab, tabClasses, TabList, TabPanel, Tabs } from "@mui/joy"
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { AddCircle, Bolt, Delete, Save, SkipNext, SkipPrevious } from "@mui/icons-material";
+import { AddCircle, Bolt, Delete, Save } from "@mui/icons-material";
 import IconButton from '@mui/joy/IconButton';
 import Menu from '@mui/joy/Menu';
 import MenuItem from '@mui/joy/MenuItem';
@@ -42,7 +41,6 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
     const [index, setIndex] = useState(-1);
     const [points, setPoints] = useState(lesson?.pages[index]?.points ? lesson.pages[index].points : 0);
     const axiosPrivate = useAxiosPrivate();
-    const navigate = useNavigate();
 
     const [yesorno, setYesOrNo] = useState();
     const [value, setValue] = useState();
@@ -53,21 +51,21 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
 
 
     const formTypeHandler = async (value) => {
-        if (lesson?.pages[value]?.form?.formType == "YES_OR_NO") {
+        if (lesson?.pages[value]?.form?.formType === "YES_OR_NO") {
             setTypeForm('Да / Нет');
             setYesOrNo(lesson?.pages[value]?.form?.rightAnswers.includes("Да"));
         }
-        if (lesson?.pages[value]?.form?.formType == "CHOOSE_CORRECTS") {
+        if (lesson?.pages[value]?.form?.formType === "CHOOSE_CORRECTS") {
             setTypeForm('Выбор вариантов ответа');
             setAnswers(lesson?.pages[value]?.form?.answers);
             setTrueAnswers(lesson?.pages[value]?.form?.rightAnswers);
         }
-        if (lesson?.pages[value]?.form?.formType == "CHOOSE_ONE") {
+        if (lesson?.pages[value]?.form?.formType === "CHOOSE_ONE") {
             setTypeForm('Выбор вариантов ответа');
             setAnswers(lesson?.pages[value]?.form?.answers);
             setTrueAnswers(lesson?.pages[value]?.form?.rightAnswers);
         }
-        if (lesson?.pages[value]?.form?.formType == "CALC") {
+        if (lesson?.pages[value]?.form?.formType === "CALC") {
             setTypeForm('Посчитать');
             setValue(lesson?.pages[value]?.form?.rightAnswers?.[0] ? lesson?.pages[value]?.form?.rightAnswers?.[0] : 0);
         }
@@ -75,7 +73,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
 
 
     const addyPage = async (type, newstep) => {
-        if(lesson.pages.length==0){
+        if(lesson.pages.length===0){
             newstep=0;
         }
         const response = await axiosPrivate.post(`/api/v1/page/add`,
@@ -126,21 +124,21 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
     }
 
     const updateForm = async (lesson, index, formType) => {
-        if (lesson?.pages[index]?.form ? lesson?.pages[index]?.form : null != null) {
+        if (lesson?.pages[index]?.form ? lesson?.pages[index]?.form : null !== null) {
             var typeFormReq = "CALC";
-            if ('Да / Нет' == formType) {
+            if ('Да / Нет' === formType) {
                 typeFormReq = "YES_OR_NO";
                 lesson.pages[index].form.answers = ["Да", "Нет"];
                 lesson.pages[index].form.rightAnswers = (yesorno === true ? ["Да"] : ["Нет"]);
-            } else if ('Выбор вариантов ответа' == formType) {
-                if (lesson.pages[index].form.rightAnswers.length != 1) {
+            } else if ('Выбор вариантов ответа' === formType) {
+                if (lesson.pages[index].form.rightAnswers.length !== 1) {
                     typeFormReq = "CHOOSE_CORRECTS";
                 } else {
                     typeFormReq = "CHOOSE_ONE";
                 }
                 lesson.pages[index].form.answers = answers;
                 lesson.pages[index].form.rightAnswers = trueAnswers;
-            } else if ('Посчитать' == formType) {
+            } else if ('Посчитать' === formType) {
                 typeFormReq = "CALC";
                 lesson.pages[index].form.answers = [];
                 lesson.pages[index].form.rightAnswers = [value];
@@ -190,7 +188,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
             overflowY:"scroll",
             scrollbarWidth:"none"
             }} variant="outlined">
-            {lesson?.id != null ?
+            {lesson?.id !== null ?
                 <Stack direction={"column"} gap={0.5} sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -231,7 +229,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
                         ></Input>
                         <Button sx={{ flexGrow: 0 }} onClick={() => handleSave(lesson, title, index, typeForm)} startDecorator={<Save></Save>}>cохранить</Button>
                         <IconButton color={"danger"} sx={{ flexGrow: 0 }} variant="soft" onClick={() => {
-                            if (index >= 0 && lesson.pages.length!=0) { 
+                            if (index >= 0 && lesson.pages.length!==0) { 
                                 delPage(lesson.pages[index].id);
                             }
                         }}><Delete /></IconButton>

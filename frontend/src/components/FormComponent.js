@@ -1,9 +1,8 @@
 import { Box, Button, Checkbox, IconButton, Input, Radio, RadioGroup, Sheet, Stack, Typography } from "@mui/joy"
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { NumericFormat } from 'react-number-format';
 import { Remove } from "@mui/icons-material";
-import useWindowDimensions from "../hooks/useWindowDimentions";
 
 
 const NumericFormatAdapter = React.forwardRef(
@@ -138,8 +137,8 @@ const FormComponent = ({ typeForm, setTypeForm, yesorno, setYesOrNo, value, setV
                                     <Radio overlay
                                         label={el}
                                         value={el}
-                                        checked={(el == "Да" && yesorno == true) || (el == "Нет" && yesorno == false)}
-                                        onChange={(e) => setYesOrNo(e.target.value == "Да")} />
+                                        checked={(el ==="Да" && yesorno ===true) || (el ==="Нет" && yesorno ===false)}
+                                        onChange={(e) => setYesOrNo(e.target.value ==="Да")} />
                                 </Sheet>
                             ))
                         }

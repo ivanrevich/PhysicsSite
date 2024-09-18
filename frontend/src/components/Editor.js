@@ -3,7 +3,6 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css"; 
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { upload } from "@testing-library/user-event/dist/upload";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 window.katex = katex;
 

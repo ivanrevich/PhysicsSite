@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
-import { Avatar, Box, Button, CssBaseline, Grid, IconButton, List, ListItem, ListItemButton, ListItemContent, ListItemDecorator, Sheet, Typography } from "@mui/joy";
+import { useLocation } from "react-router-dom";
+import { Avatar, Box, CssBaseline, List, ListItem, ListItemButton, ListItemContent, ListItemDecorator, Sheet, Typography } from "@mui/joy";
 import { AccountCircleOutlined, KeyboardArrowRight, Logout, People, Task } from "@mui/icons-material";
 
 import ModeToggle from "../components/ModeToggle";
@@ -10,8 +9,8 @@ import ModeToggle from "../components/ModeToggle";
 const Users = () => {
     const [users, setUsers] = useState();
     const axiosPrivate = useAxiosPrivate();
-    const { setAuth } = useContext(AuthContext);
-    const navigate = useNavigate();
+    //const { setAuth } = useContext(AuthContext);
+    //const navigate = useNavigate();
     const location = useLocation();
     const toTasks = async () => { navigate('/') }
     const logout = async () => {

@@ -170,7 +170,7 @@ const Home = () => {
                         clipPath: 'inset(0 -100vmax)',
                     })}
                 >
-                    {index == 0 ?
+                    {index === 0 ?
                         <TabPanel value={0} sx={{ height: "100%", display: "flex" }}>
                             <Stack direction="row" sx={{
                                 height: "100%",
@@ -183,7 +183,7 @@ const Home = () => {
                         </TabPanel> :
                         <span></span>
                     }
-                    {index == 1 ?
+                    {index === 1 ?
                         <TabPanel value={1}><Users navigate={navigate} /></TabPanel>
                         : <span></span>
                     }

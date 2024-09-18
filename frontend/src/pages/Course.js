@@ -1,9 +1,8 @@
-import { Box, Button, Divider, IconButton, Input, Sheet, Stack, Step, Stepper, Typography } from "@mui/joy"
+import { Divider, IconButton, Input, Sheet, Stack, Stepper, Typography } from "@mui/joy"
 import LevelComponent from "../components/LevelComponent"
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
 import { AddCircle } from "@mui/icons-material";
-import { useLocation } from "react-router";
 import useWindowDimensions from "../hooks/useWindowDimentions";
 
 const CoursePage = ({ navigate, getLessonEdit }) => {

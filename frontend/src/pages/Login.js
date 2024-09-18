@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useColorScheme } from '@mui/joy/styles';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Sheet from '@mui/joy/Sheet';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Typography from '@mui/joy/Typography';
@@ -9,7 +8,6 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
-import { FormHelperText } from '@mui/joy';
 import axios from 'axios';
 import ModeToggle from '../components/ModeToggle';
 
