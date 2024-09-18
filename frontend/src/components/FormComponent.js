@@ -1,6 +1,5 @@
 import { Box, Button, Checkbox, IconButton, Input, Radio, RadioGroup, Sheet, Stack, Typography } from "@mui/joy"
 import React, { useState } from "react";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { NumericFormat } from 'react-number-format';
 import { Remove } from "@mui/icons-material";
 
@@ -28,7 +27,6 @@ const NumericFormatAdapter = React.forwardRef(
 );
 
 const FormComponent = ({ typeForm, setTypeForm, yesorno, setYesOrNo, value, setValue, answers, setAnswers, trueAnswers, setTrueAnswers, width, height }) => {
-    const axiosPrivate = useAxiosPrivate();
     const [newElem, setNewElem] = useState();
     const handleAddNewElem = async () => {
         setAnswers([...answers, newElem]);
