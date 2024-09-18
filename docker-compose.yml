@@ -11,20 +11,7 @@ services:
     volumes:
       - /frontapp/node_modules
       - ./frontend:/frontapp
-  client-backend:
-    image: backend:0.0.1
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - service-db
-    environment:
-      - SERVER_PORT = 8080
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://service-db/books_db
-    volumes:
-      - files:src/main/resources/static/files
+
 
   service-db:
     image: postgres:14.7-alpine
