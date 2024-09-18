@@ -2,13 +2,13 @@ version: '3.8'
 services:
   client-frontend:
     image: frontend:0.0.1
-    build: ./frontend
+    build: ./frontend/
     restart: always
     ports:
       - '3005:3005'
     volumes:
-      - /app/node_modules
-      - ./frontend:/app
+      - /frontapp/node_modules
+      - ./frontend:/frontapp
 
   client-backend:
     image: backend:0.0.1
