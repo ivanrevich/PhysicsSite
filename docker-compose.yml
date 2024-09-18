@@ -19,6 +19,6 @@ services:
     environment:
       - SERVER_PORT = 8080
     volumes:
-      - files:src/main/resources/static/files
+      - files:/app/src/main/resources/static/files
 volumes:
   files:
