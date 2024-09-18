@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-EXPOSE 3000
+EXPOSE 3005
 
 COPY ["package.json", "package-lock.json*", "./"]
 
