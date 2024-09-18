@@ -5,7 +5,7 @@ services:
     build: ./frontend
     restart: always
     ports:
-      - '3000:3005'
+      - '8000:8000'
     volumes:
       - /app/node_modules
       - ./frontend:/app
