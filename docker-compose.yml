@@ -2,15 +2,13 @@ version: "3.8"
 services:
   client-frontend:
     image: frontend:0.0.1
-    build:
-      context: ./frontend/
-      dockerfile: ./frontend/Dockerfile
+    build: ./frontend
     restart: always
     ports:
       - '3005:3005'
     volumes:
-      - /frontapp/node_modules
-      - ./frontend:/frontapp
+      - /app/node_modules
+      - ./frontend:/app
   client-backend:
     image: backend:0.0.1
     build:
