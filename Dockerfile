@@ -12,11 +12,11 @@ ENTRYPOINT ["java", "-jar", "/app/*.jar"]
 
 FROM node:18-alpine
 
-WORKDIR /frontapp
+WORKDIR /frontend
 
 EXPOSE 3005
 
-COPY ["package.json", "package-lock.json*", "./"]
+COPY ["/frontend/package.json", "/frontend/package-lock.json*", "./frontend"]
 
 RUN npm install
 
