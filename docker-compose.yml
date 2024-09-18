@@ -6,6 +6,8 @@ services:
     restart: always
     ports:
       - 3005:3005
+    environment:
+      - SERVER_PORT = 3005
     volumes:
       - /app/node_modules
       - ./frontend:/app
