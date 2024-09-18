@@ -5,7 +5,7 @@ services:
     build: ./frontend
     restart: always
     ports:
-      - 3005:443
+      - 443:3005
     volumes:
       - /app/node_modules
       - ./frontend:/app
