@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://physics-site-816529-b1036c-77-73-132-179.traefik.me/';
+const BASE_URL = 'http://localhost:8080';
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
