@@ -4,7 +4,7 @@ services:
     image: frontend:0.0.1
     build:
       context: ./frontend/
-      dockerfile: ./frontend/Dockerfile.second
+      dockerfile: ./frontend/Dockerfile
     restart: always
     ports:
       - '3005:3005'
@@ -15,7 +15,7 @@ services:
     image: backend:0.0.1
     build:
       context: .
-      dockerfile: Dockerfile.second
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     depends_on:
