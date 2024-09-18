@@ -8,3 +8,18 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar /app/*.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/*.jar"]
+
+
+FROM node:18-alpine
+
+WORKDIR /frontapp
+
+EXPOSE 3005
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "start"]
