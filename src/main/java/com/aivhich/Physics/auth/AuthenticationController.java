@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.security.Principal;
 
 @RestController
-@CrossOrigin(origins = {"http://physics-site-816529-ecdefa-77-73-132-179.traefik.me"})
+@CrossOrigin(origins = {"*"})
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
