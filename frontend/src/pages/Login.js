@@ -48,7 +48,7 @@ const Login = () => {
                 }
             );
             const accessToken = response?.data?.access_token;
-            const refreshToken = response?.data?.refreshToken
+            const refreshToken = response?.data?.refresh_token
             const roles = response?.data?.roles;
             setAuth({ user, pwd, roles, refreshToken, accessToken });
             setUser('');
