@@ -8,6 +8,15 @@ services:
       - 3005:3005
     environment:
       - SERVER_PORT = 3005
+    networks:
+      - dokploy-network
+    depends_on:
+      - client-backend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.client-frontend.rule=Host(`physics-site-816529-ecdefa-77-73-132-179.traefik.me`)
+      - traefik.http.routers.client-frontend.entrypoints=web
+      - traefik.http.services.client-frontend.loadbalancer.server.port=3005
     volumes:
       - /app/node_modules
       - ./frontend:/app
@@ -22,5 +31,15 @@ services:
       - SERVER_PORT = 8080
     volumes:
       - files:/app/src/main/resources/static/files
+    networks:
+      - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.client-backend.rule=Host(`physics-site-816529-b1036c-77-73-132-179.traefik.me`)
+      - traefik.http.routers.client-backend.entrypoints=web
+      - traefik.http.services.client-backend.loadbalancer.server.port=8080
 volumes:
   files:
+networks:
+  dokploy-network:
+    external: true
