@@ -6,11 +6,13 @@ const useAuth = () => {
     const { auth } = useContext(AuthContext);
     if (auth.accessToken != null) {
         Cookies.set('token', auth.accessToken, { expires: 7, secure: true });
+        Cookies.set('refreshtoken', auth.refreshToken, { expires: 30, secure: true });
         Cookies.set('user', auth.user, { expires: 7, secure: true });
         Cookies.set('roles', auth.roles, { expires: 7, secure: true });
         Cookies.set('pwd', auth.pws, { expires: 7, secure: true });
     } else {
         auth.accessToken = Cookies.get("token");
+        auth.refreshToken = Cookies.get("refreshtoken")
         auth.user = Cookies.get("user");
         auth.roles = Cookies.get("roles");
         auth.pwd = Cookies.get("pwd");
