@@ -5,7 +5,6 @@ import AuthContext from "../context/AuthProvider";
 const useAuth = () => {
     const { auth } = useContext(AuthContext);
     if (auth.accessToken != null) {
-        console.log(auth.refreshToken)
         Cookies.set('token', auth.accessToken, { expires: 7, secure: true });
         Cookies.set('refreshtoken', auth.refreshToken, { expires: 30, secure: true });
         Cookies.set('user', auth.user, { expires: 7, secure: true });

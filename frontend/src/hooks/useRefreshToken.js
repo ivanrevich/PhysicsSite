@@ -12,9 +12,8 @@ const useRefreshToken = () => {
                 'Content-Type': 'application/json',
             }
         });
-        console.log(response.data)
         setAuth(prev => {
-            return { ...prev, accessToken: response.data.accessToken }
+            return { ...prev, accessToken: response.data.access_token }
         });
         return response.data.accessToken;
     }
