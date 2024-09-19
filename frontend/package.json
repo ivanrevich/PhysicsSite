@@ -45,7 +45,7 @@
       "host.docker.internal",
       ".host.docker.internal"
     ],
-    "proxy": "http://host.docker.internal:8080"
+    "proxy": "http://localhost:8080"
   },
   "eslintConfig": {
     "extends": [
