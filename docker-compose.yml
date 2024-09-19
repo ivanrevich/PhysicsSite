@@ -28,8 +28,8 @@ services:
     ports:
       - 8080:8080
     environment:
-      - SERVER_PORT = 8080
-      - server.address: 127.0.0.1
+      server.address: 0.0.0.0
+      server.port: 8080
     volumes:
       - files:/app/src/main/resources/static/files
     networks:
