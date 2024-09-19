@@ -45,7 +45,7 @@
       "host.docker.internal",
       ".host.docker.internal"
     ],
-    "proxy": "http://127.0.0.5:8080"
+    "proxy": "http://physics-site-816529-b1036c-77-73-132-179.traefik.me"
   },
   "eslintConfig": {
     "extends": [

@@ -11,7 +11,7 @@ import Button from '@mui/joy/Button';
 import axios from 'axios';
 import ModeToggle from '../components/ModeToggle';
 
-const LOGIN_URL = "http://127.0.0.5:8080/api/v1/auth/authenticate"
+const LOGIN_URL = "http://physics-site-816529-b1036c-77-73-132-179.traefik.me/api/v1/auth/authenticate"
 
 
 

@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://127.0.0.5:8080',
+      target: 'http://physics-site-816529-b1036c-77-73-132-179.traefik.me',
       changeOrigin: true,
     })
   );
