@@ -8,7 +8,7 @@ const useRefreshToken = () => {
         const response = await axios.post('/api/v1/auth/refresh-token', {}, {
             //withCredentials: true,
             headers: {
-                'Authorization':`Bearer ${accessToken}`,
+                'Authorization':`${accessToken}`,
                 'Content-Type': 'application/json',
             }
         });
