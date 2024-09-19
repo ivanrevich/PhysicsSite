@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3005"})
+@CrossOrigin(origins = {"http://physics-site-816529-ecdefa-77-73-132-179.traefik.me"})
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {

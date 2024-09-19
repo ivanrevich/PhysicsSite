@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/lessons")
-@CrossOrigin(origins = {"http://localhost:3005"})
+@CrossOrigin(origins = {"http://physics-site-816529-ecdefa-77-73-132-179.traefik.me"})
 public class LessonController {
     @Autowired
     private LessonService lessonService;
