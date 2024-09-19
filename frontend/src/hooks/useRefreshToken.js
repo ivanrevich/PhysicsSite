@@ -2,13 +2,13 @@ import axios from '../api/axios';
 import useAuth from './useAuth';
 
 const useRefreshToken = () => {
-    const { setAuth } = useAuth();
+    const {auth, setAuth } = useAuth();
 
-    const refresh = async (accessToken) => {
+    const refresh = async () => {
         const response = await axios.post('/api/v1/auth/refresh-token', {}, {
-            //withCredentials: true,
+            withCredentials: true,
             headers: {
-                'Authorization':`Bearer ${accessToken}`,
+                'Authorization':`Bearer ${auth?.refreshToken}`,
                 'Content-Type': 'application/json',
             }
         });
