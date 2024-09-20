@@ -73,8 +73,8 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
 
 
     const addyPage = async (type, newstep) => {
-        if(lesson.pages.length===0){
-            newstep=0;
+        if(lesson.pages.length<=0){
+            newstep=1;
         }
         const response = await axiosPrivate.post(`/api/v1/page/add`,
             JSON.stringify({
