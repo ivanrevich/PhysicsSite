@@ -107,7 +107,7 @@ public class UserService {
                 .filter(it -> it.getId() == user.getId())
                 .findFirst();
 
-        place = foundUser.map(users::indexOf).orElse(1);
+        place = foundUser.map(users::indexOf).orElse(101);
 
         Long points = user.getPassedPages()
                 .stream()
