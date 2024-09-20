@@ -85,7 +85,8 @@ public class UserService {
                 .map(Page::getPoints)
                 .flatMapToLong(it -> LongStream.of(it.longValue()))
                 .sum())
-        ).toList().reversed();
+        ).toList();
+        users = users.reversed();
 
         Map<UUID, Long> usersPoints = users
                 .stream()
