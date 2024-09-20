@@ -29,35 +29,30 @@ const useAxiosPrivate = () => {
                         setIsRefreshing(true); 
                         prevRequest.sent = true; 
 
-                        // Обновляем токен и обрабатываем ожидания
                         try {
                             const newAccessToken = await refresh(); 
-                            
-                            // Обновляем все ожидающие запросы с новым токеном
-                            pendingRequests.forEach(callback => callback(newAccessToken)); 
 
-                            // После успешного обновления токена обрабатываем текущий запрос
+                            // Обновляем заголовок авторизации для текущего запроса
                             prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`; 
+
+                            // Выполняем запрос заново с новым токеном
                             return axiosPrivate(prevRequest); 
                         } catch (err) {
-                            // Обрабатываем ошибки обновления токена
                             return Promise.reject(err);
                         } finally {
                             setIsRefreshing(false);
-                            setPendingRequests([]); // Сбрасываем ожидающие запросы
                         }
                     } else {
                         // Если уже идет процесс обновления, добавляем текущий запрос в очередь
                         return new Promise((resolve, reject) => {
-                            setPendingRequests(prev => 
-                                [...prev, (newAccessToken) => {
-                                    prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-                                    resolve(axiosPrivate(prevRequest)); 
-                                }]
-                            );
+                            const requestWithNewToken = () => {
+                                prevRequest.headers['Authorization'] = `Bearer ${auth?.accessToken}`; 
+                                resolve(axiosPrivate(prevRequest)); 
+                            };
+                            setPendingRequests(prev => [...prev, requestWithNewToken]);
                         });
                     }
-                }
+                } 
                 
                 return Promise.reject(error); 
             } 
@@ -67,7 +62,7 @@ const useAxiosPrivate = () => {
             axiosPrivate.interceptors.request.eject(requestIntercept); 
             axiosPrivate.interceptors.response.eject(responseIntercept); 
         }; 
-    }, [auth, refresh, pendingRequests, isRefreshing]); 
+    }, [auth, refresh, isRefreshing]); 
 
     return axiosPrivate; 
 }; 
