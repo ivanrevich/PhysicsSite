@@ -5,7 +5,6 @@ const useRefreshToken = () => {
     const {auth, setAuth } = useAuth();
 
     const refresh = async () => {
-        try{
             console.log(`Bearer ${auth?.refreshToken}`)
             const response = await axios.post('/api/v1/auth/refresh-token', {}, {
                 withCredentials: false,
@@ -19,9 +18,6 @@ const useRefreshToken = () => {
             });
             console.log(auth.accessToken)
             return response.data.access_token;
-        }catch(e){
-            return auth?.accessToken
-        }
     }
     return refresh;
 };
