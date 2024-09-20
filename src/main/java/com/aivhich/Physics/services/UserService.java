@@ -83,7 +83,7 @@ public class UserService {
                 .filter(it -> it.getTimestamp() > epochMilli)
                 .map(Page::getPoints)
                 .flatMapToLong(it -> LongStream.of(it.longValue()))
-                .sum())).toList();
+                .sum())).toList().reversed();
         Map<UUID, Long> usersPoints = users
                 .stream()
                 .collect(Collectors.toMap(User::getId, it->{
