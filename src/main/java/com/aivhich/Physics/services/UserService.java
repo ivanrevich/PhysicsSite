@@ -102,12 +102,21 @@ public class UserService {
                                     .sum();
                         }
                 ));
-        int place;
-        try {
-            place = users.indexOf(user);
-        } catch (Exception e) {
-            place = 101;
+
+        int place = -1;
+        UUID currentUserId = user.getId();
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().equals(currentUserId)) {
+                place = i;
+                break;
+            }
         }
+
+        if (place == -1) {
+            place = 1;
+        }
+
+
         Long points = user.getPassedPages()
                 .stream()
                 .filter(it -> it.getTimestamp() > epochMilli)
