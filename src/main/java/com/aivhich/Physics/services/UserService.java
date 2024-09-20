@@ -77,17 +77,20 @@ public class UserService {
     public LeaderUsersResponse getLeaders(Principal principal) {
         var user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         long epochMilli = Instant.now().toEpochMilli() - (LocalDate.now().with(java.time.DayOfWeek.MONDAY).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli());
+
         List<User> users = repository.findAll().stream().sorted(
                 Comparator.comparingLong(a->a.getPassedPages()
                 .stream()
                 .filter(it -> it.getTimestamp() > epochMilli)
                 .map(Page::getPoints)
                 .flatMapToLong(it -> LongStream.of(it.longValue()))
-                .sum())).toList().reversed();
+                .sum())
+        ).toList().reversed();
+
         Map<UUID, Long> usersPoints = users
                 .stream()
                 .collect(Collectors.toMap(User::getId, it->{
-                    return it.getPassedPages()
+                     return it.getPassedPages()
                         .stream()
                         .filter(a -> a.getTimestamp() > epochMilli)
                         .map(Page::getPoints)
@@ -107,6 +110,11 @@ public class UserService {
                 .map(Page::getPoints)
                 .flatMapToLong(it -> LongStream.of(it.longValue()))
                 .sum();
-        return LeaderUsersResponse.builder().userPoints(usersPoints).points(points).place(place).users(users).build();
+        return LeaderUsersResponse.builder()
+                .userPoints(usersPoints)
+                .points(points)
+                .place(place)
+                .users(users.subList(Math.max((users.size() - 100), 0), users.size()))
+                .build();
     }
 }
