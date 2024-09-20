@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
@@ -106,11 +103,12 @@ public class UserService {
                     }
                 ));
         int place;
-        try{
-            place = users.indexOf(users.stream().filter(it->it.getId()==user.getId()).toList().get(0));
-        }catch (Exception e){
-            place=1;
-        }
+        Optional<User> foundUser = users.stream()
+                .filter(it -> it.getId() == user.getId())
+                .findFirst();
+
+        place = foundUser.map(users::indexOf).orElse(1);
+
         Long points = user.getPassedPages()
                 .stream()
                 .filter(it -> it.getTimestamp() > epochMilli)
