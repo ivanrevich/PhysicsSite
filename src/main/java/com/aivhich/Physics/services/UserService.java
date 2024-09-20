@@ -74,18 +74,25 @@ public class UserService {
         return users;
     }
 
+
+    private long calculateScore(User user, long epochMilli) {
+        return user.getPassedPages()
+                .stream()
+                .filter(page -> page.getTimestamp() > epochMilli)
+                .map(Page::getPoints)
+                .flatMapToLong(it -> LongStream.of(it.longValue()))
+                .sum();
+    }
+
+
     public LeaderUsersResponse getLeaders(Principal principal) {
         var user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         long epochMilli = Instant.now().toEpochMilli() - (LocalDate.now().with(java.time.DayOfWeek.MONDAY).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli());
 
-        List<User> users = repository.findAll().stream().sorted(
-                Comparator.comparingLong(a->a.getPassedPages()
-                .stream()
-                .filter(it -> it.getTimestamp() > epochMilli)
-                .map(Page::getPoints)
-                .flatMapToLong(it -> LongStream.of(it.longValue()))
-                .sum())
-        ).toList();
+        List<User> users = repository.findAll().stream()
+                .sorted(Comparator.comparingLong(a -> calculateScore((User) a, epochMilli)).reversed())
+                .toList();
+
 
         Map<UUID, Long> usersPoints = users
                 .stream()
