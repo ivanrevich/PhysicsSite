@@ -86,7 +86,6 @@ public class UserService {
                 .flatMapToLong(it -> LongStream.of(it.longValue()))
                 .sum())
         ).toList();
-        users = users.reversed();
 
         Map<UUID, Long> usersPoints = users
                 .stream()
