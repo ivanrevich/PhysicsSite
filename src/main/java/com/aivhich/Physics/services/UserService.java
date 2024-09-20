@@ -103,7 +103,7 @@ public class UserService {
                         }
                 ));
 
-        int place = 1;
+        int place = 101;
         UUID currentUserId = user.getId();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getId().equals(currentUserId)) {
