@@ -51,22 +51,22 @@ public class UserService {
 
     public UserDto getUserData(Principal connectedUser) {
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-            return UserDto.builder()
-                    .id(user.getId())
-                    .name(user.getName())
-                    .surname(user.getSurname())
-                    .email(user.getEmail())
-                    .nickname(user.getNickname())
-                    .emailVerified(user.isEmailVerified())
-                    .build();
+        return UserDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .email(user.getEmail())
+                .nickname(user.getNickname())
+                .emailVerified(user.isEmailVerified())
+                .build();
     }
 
     public List<User> getUsers(int page) {
         List<User> users = repository.findAll();
         int toIndex = users.size();
-        if(toIndex>25){
-            toIndex = 25*page;
-            return users.subList((page-1)*25, toIndex);
+        if (toIndex > 25) {
+            toIndex = 25 * page;
+            return users.subList((page - 1) * 25, toIndex);
         }
         return users;
     }
@@ -93,22 +93,21 @@ public class UserService {
 
         Map<UUID, Long> usersPoints = users
                 .stream()
-                .collect(Collectors.toMap(User::getId, it->{
-                     return it.getPassedPages()
-                        .stream()
-                        .filter(a -> a.getTimestamp() > epochMilli)
-                        .map(Page::getPoints)
-                        .flatMapToLong(b -> LongStream.of(b.longValue()))
-                        .sum();
-                    }
+                .collect(Collectors.toMap(User::getId, it -> {
+                            return it.getPassedPages()
+                                    .stream()
+                                    .filter(a -> a.getTimestamp() > epochMilli)
+                                    .map(Page::getPoints)
+                                    .flatMapToLong(b -> LongStream.of(b.longValue()))
+                                    .sum();
+                        }
                 ));
         int place;
-        Optional<User> foundUser = users.stream()
-                .filter(it -> it.getId() == user.getId())
-                .findFirst();
-
-        place = foundUser.map(users::indexOf).orElse(101);
-
+        try {
+            place = users.indexOf(user);
+        } catch (Exception e) {
+            place = 101;
+        }
         Long points = user.getPassedPages()
                 .stream()
                 .filter(it -> it.getTimestamp() > epochMilli)
