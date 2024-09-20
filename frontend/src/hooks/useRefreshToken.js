@@ -12,12 +12,12 @@ const useRefreshToken = () => {
         if (isRefreshing) {
             return;
         }
-
-        setIsRefreshing(true); // Устанавливаем флаг, что запрос только начался.
-        setRefreshError(null); // Сбрасываем предыдущую ошибку.
-
         try {
             console.log(`Bearer ${auth?.refreshToken}`); 
+            
+            setIsRefreshing(true); // Устанавливаем флаг, что запрос только начался.
+            setRefreshError(null); // Сбрасываем предыдущую ошибку.
+
             const response = await axios.post('/api/v1/auth/refresh-token', {}, { 
                 withCredentials: false, 
                 headers: { 
@@ -43,7 +43,7 @@ const useRefreshToken = () => {
         }
     };
 
-    return { refresh, refreshError }; 
+    return refresh; 
 }; 
 
 export default useRefreshToken;
