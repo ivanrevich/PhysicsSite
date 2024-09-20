@@ -68,7 +68,7 @@ const Editor = ({ lesson, setLesson, page, index}) => {
             const data = response.data;
             if (data) {
               const range = quill.getSelection();
-              quill.insertEmbed(range.index, 'image', "http://localhost:8080/api/v1/page/files/"+data);
+              quill.insertEmbed(range.index, 'image', "http://physics-site-816529-b1036c-77-73-132-179.traefik.me/api/v1/page/files/"+data);
             } else {
               console.error('Image upload failed', data);
             }

@@ -38,6 +38,12 @@ public class UserController {
         return ResponseEntity.ok(service.getLeaders(principal));
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(Principal principal){
+        service.delete(principal);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/getAll")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getUsers(@RequestParam("page") int page) {

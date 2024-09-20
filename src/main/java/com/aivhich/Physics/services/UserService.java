@@ -126,4 +126,9 @@ public class UserService {
                 .users(users.subList(Math.max((users.size() - 100), 0), users.size()))
                 .build();
     }
+
+    public void delete(Principal principal) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        repository.delete(user);
+    }
 }
