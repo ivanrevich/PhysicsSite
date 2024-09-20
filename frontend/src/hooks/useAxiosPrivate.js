@@ -38,7 +38,7 @@ const useAxiosPrivate = () => {
                             // Выполняем запрос заново с новым токеном
                             return axiosPrivate(prevRequest); 
                         } catch (err) {
-                            return Promise.reject(err);
+                            //return Promise.reject(err);
                         } finally {
                             setIsRefreshing(false);
                         }
