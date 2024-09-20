@@ -68,12 +68,12 @@ public class AuthenticationService {
         var refreshToken = jwtService.generateRefreshToken(user);
 
 
-        mailSender.sendEmail(user.getEmail(), "Applang: Email verification",
-                "Hello, " + user.getNickname() +
-                        "!\n\nTo verify your email address in the Applang app, enter this code:\n"
+        mailSender.sendEmail(user.getEmail(), "Физбот: Подтверждение email адреса",
+                "Здраствуйте, " + user.getNickname() +
+                        "!\n\nЧтобы подтвердить свой адрес электронной почты в приложении ФизБот, введите этот код:\n"
                         + code.getCode() +
-                        "\nThis code will expire in 10 minutes.\n" +
-                        "\nIf you received this email in error, simply ignore it!\n\nYour Applang\n\nFor Questions founder@applang.ru");
+                        "\nЭтот код действует 10 минут\n" +
+                        "\nЕсли вы получили это письмо по ошибке, просто проигнорируйте его!\n\nФизбот\n\nДля вопросов: founder@applang.ru");
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
