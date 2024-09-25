@@ -231,34 +231,36 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                             }}
                             value={title} onChange={(e) => setTitle(e.target.value)}></Input>
                         {index!==-1?
-                        <Input
-                            variant="outlined"
-                            slotProps={{
-                                input: {
-                                    component: NumericFormatAdapter,
-                                },
-                            }}
-                            startDecorator={<Bolt />}
-                            value={points}
-                            onChange={(e) => {
-                                setPoints(e.target.value);
-                                if (index >= 0) {
-                                    lesson.pages[index].points = e.target.value
+                        <Stack direction={"row"} sx={{ gap: 1, my: 1 }}>
+                            <Input
+                                variant="outlined"
+                                slotProps={{
+                                    input: {
+                                        component: NumericFormatAdapter,
+                                    },
+                                }}
+                                startDecorator={<Bolt />}
+                                value={points}
+                                onChange={(e) => {
+                                    setPoints(e.target.value);
+                                    if (index >= 0) {
+                                        lesson.pages[index].points = e.target.value
+                                    }
+                                }}
+                                sx={{
+                                    '--joy-focus-thickness': 0,
+                                    fontWeight: 600, fontSize: 22, px: 1,
+                                    maxWidth: 100,
+                                }}
+                            ></Input>
+                            <Button sx={{ flexGrow: 0 }} onClick={() => handleSave(lesson, title, index, typeForm)} startDecorator={<Save></Save>}>cохранить</Button>
+                            <IconButton color={"danger"} sx={{ flexGrow: 0 }} variant="soft" onClick={() => {
+                                if (index >= 0 && lesson.pages.length!==0) { 
+                                    delPage(lesson.pages[index].id);
                                 }
-                            }}
-                            sx={{
-                                '--joy-focus-thickness': 0,
-                                fontWeight: 600, fontSize: 22, px: 1,
-                                maxWidth: 100,
-                            }}
-                        ></Input>:<span></span>
+                            }}><Delete /></IconButton>
+                        </Stack>:<span></span>
                         }
-                        <Button sx={{ flexGrow: 0 }} onClick={() => handleSave(lesson, title, index, typeForm)} startDecorator={<Save></Save>}>cохранить</Button>
-                        <IconButton color={"danger"} sx={{ flexGrow: 0 }} variant="soft" onClick={() => {
-                            if (index >= 0 && lesson.pages.length!==0) { 
-                                delPage(lesson.pages[index].id);
-                            }
-                        }}><Delete /></IconButton>
                     </Stack>
                     <Tabs aria-label="tabs"
                         value={index}
