@@ -100,7 +100,7 @@ const Login = () => {
             // html input attribute
             name="email"
             type="email"
-            placeholder="johndoe@email.com"
+            placeholder="ivanivanov@mail.com"
             id="username"
             ref={userRef}
             autoComplete="off"
@@ -115,7 +115,7 @@ const Login = () => {
             // html input attribute
             name="password"
             type="password"
-            placeholder="password"
+            placeholder="пароль"
             id="password"
             onChange={(e) => setPwd(e.target.value)}
             value={pwd}

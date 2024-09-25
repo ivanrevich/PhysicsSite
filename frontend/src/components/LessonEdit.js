@@ -231,7 +231,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                             }}
                             value={title} onChange={(e) => setTitle(e.target.value)}></Input>
                         {index!==-1?
-                        <Stack direction={"row"} sx={{ gap: 1, my: 1 }}>
+                        <Stack direction={"row"} sx={{ gap: 1,}}>
                             <Input
                                 variant="outlined"
                                 slotProps={{
