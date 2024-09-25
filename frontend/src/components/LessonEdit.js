@@ -81,7 +81,12 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
                 lesson_id: lesson.id,
                 type: type,
                 stepid: newstep,
-            })
+            }),
+            {
+                headers: { 
+                    'Content-Type': 'application/json', 
+                } 
+            }
         );
         const updatedPages = lesson?.pages?.map(it => {
             if (it.stepId >= newstep) {
@@ -102,6 +107,11 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
                     params: {
                         id: id,
                     },
+                },
+                {
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                    } 
                 }
             );
             setIndex(lesson?.pages.filter(el => el.id === id)[0].stepId-1);
@@ -118,7 +128,12 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
             JSON.stringify({
                 id: lesson_id,
                 title: title
-            })
+            }),
+            {
+                headers: { 
+                    'Content-Type': 'application/json', 
+                } 
+            }
         );
         setTitle(title);
     }
@@ -153,7 +168,12 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
                     type: typeFormReq,
                     answers: lesson.pages[index].form.answers,
                     rightAnswers: lesson.pages[index].form.rightAnswers
-                })
+                }),
+                {
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                    } 
+                }
             );
         }
     }
@@ -164,7 +184,12 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
                 id: id,
                 text: text,
                 points: points
-            })
+            }),
+            {
+                headers: { 
+                    'Content-Type': 'application/json', 
+                } 
+            }
         );
 
     }
