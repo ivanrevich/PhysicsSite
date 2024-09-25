@@ -37,7 +37,8 @@ const NumericFormatAdapter = React.forwardRef(
     },
 );
 
-const LessonEdit = ({ lesson, title, setLesson, setTitle, index, setIndex}) => {
+const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
+    const [index, setIndex] = useState(-1);
     const [points, setPoints] = useState(lesson?.pages[index]?.points ? lesson.pages[index].points : 0);
     const axiosPrivate = useAxiosPrivate();
 
@@ -45,7 +46,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, index, setIndex}) => {
     const [value, setValue] = useState();
     const [answers, setAnswers] = useState([]);
     const [trueAnswers, setTrueAnswers] = useState([]);
-    const [typeForm, setTypeForm] = useState();
+    const [typeForm, setTypeForm] = useState("");
     const { width, height } = useWindowDimensions();
 
 

@@ -20,8 +20,6 @@ import LessonEdit from "../components/LessonEdit";
 
 const Home = () => {
     const { height, width } = useWindowDimensions();
-    
-    const [indexPage, setIndexPage] = useState(-1);
     const [user, setUser] = useState();
     const [lessonid, setLessonId] = useState(null);
     const [title, setTitle] = useState();
@@ -90,8 +88,11 @@ const Home = () => {
                     flexDirection: "column"
                 }}
                 onChange={(event, value) => {
-                    setIndexPage(-1);
-                    setIndex(value); }}
+                    setIndex(value);
+                    
+        window.location.reload(true);
+                }
+            }
             >
                 <Box sx={{
                     display: "flex",
@@ -182,7 +183,7 @@ const Home = () => {
                                 gap: 2,
                             }}>
                                 <CoursePage navigate={navigate} lessonid={lessonid} getLessonEdit={(id)=>{getLessonEdit(id)}} />
-                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle} setIndex={setIndexPage} index={indexPage}></LessonEdit>
+                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle}></LessonEdit>
                             </Stack>
                         </TabPanel> :
                         <span></span>
