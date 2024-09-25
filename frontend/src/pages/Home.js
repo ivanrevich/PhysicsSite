@@ -43,7 +43,6 @@ const Home = () => {
                     }
                 );
                 response.data.pages = response.data.pages.sort((a, b) => (a.stepId > b.stepId) ? 1 : -1);
-                console.log(response.data.pages);
                 setLesson(response.data);
                 setTitle(response.data.title)
                 setIndexPage(-1);

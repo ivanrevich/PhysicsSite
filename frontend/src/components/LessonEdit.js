@@ -230,6 +230,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 flexGrow: 1, fontWeight: 600, fontSize: 22, px: 1,
                             }}
                             value={title} onChange={(e) => setTitle(e.target.value)}></Input>
+                        {index!==-1?
                         <Input
                             variant="outlined"
                             slotProps={{
@@ -250,7 +251,8 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 fontWeight: 600, fontSize: 22, px: 1,
                                 maxWidth: 100,
                             }}
-                        ></Input>
+                        ></Input>:<span></span>
+                        }
                         <Button sx={{ flexGrow: 0 }} onClick={() => handleSave(lesson, title, index, typeForm)} startDecorator={<Save></Save>}>cохранить</Button>
                         <IconButton color={"danger"} sx={{ flexGrow: 0 }} variant="soft" onClick={() => {
                             if (index >= 0 && lesson.pages.length!==0) { 
