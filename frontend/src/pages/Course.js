@@ -61,6 +61,11 @@ const CoursePage = ({ navigate, getLessonEdit }) => {
                 params: {
                     id: level.id,
                 },
+            },
+            {
+                headers: { 
+                    'Content-Type': 'application/json', 
+                } 
             }
         )
         setLvls(
@@ -77,6 +82,11 @@ const CoursePage = ({ navigate, getLessonEdit }) => {
                 params: {
                     id: lesson_id,
                 },
+            },
+            {
+                headers: { 
+                    'Content-Type': 'application/json', 
+                } 
             }
         )
         const out = lvls.map(el => {
