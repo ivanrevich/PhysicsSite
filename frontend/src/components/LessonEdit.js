@@ -37,8 +37,7 @@ const NumericFormatAdapter = React.forwardRef(
     },
 );
 
-const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
-    const [index, setIndex] = useState(-1);
+const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => {
     const [points, setPoints] = useState(lesson?.pages[index]?.points ? lesson.pages[index].points : 0);
     const axiosPrivate = useAxiosPrivate();
 

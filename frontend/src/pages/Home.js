@@ -25,6 +25,8 @@ const Home = () => {
     const [title, setTitle] = useState();
     const [lesson, setLesson] = useState(null);
     const [index, setIndex] = React.useState(0);
+    
+    const [indexPage, setIndexPage] = useState(-1);
     const { setAuth } = useContext(AuthContext);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -44,6 +46,7 @@ const Home = () => {
                 console.log(response.data.pages);
                 setLesson(response.data);
                 setTitle(response.data.title)
+                setIndexPage(-1);
             }
         } catch (err) {
             console.error(err);
@@ -89,8 +92,6 @@ const Home = () => {
                 }}
                 onChange={(event, value) => {
                     setIndex(value);
-                    
-        window.location.reload(true);
                 }
             }
             >
@@ -183,7 +184,7 @@ const Home = () => {
                                 gap: 2,
                             }}>
                                 <CoursePage navigate={navigate} lessonid={lessonid} getLessonEdit={(id)=>{getLessonEdit(id)}} />
-                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle}></LessonEdit>
+                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle} setIndex={setIndexPage} index={indexPage}></LessonEdit>
                             </Stack>
                         </TabPanel> :
                         <span></span>
