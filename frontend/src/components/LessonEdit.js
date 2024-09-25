@@ -50,14 +50,6 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
     const { width, height } = useWindowDimensions();
 
 
-    useEffect(() => {
-        setAnswers([]);
-        setTrueAnswers([])
-
-        return () => {}
-    }, [])
-
-
     const formTypeHandler = async (value) => {
         if (lesson?.pages[value]?.form?.formType === "YES_OR_NO") {
             setTypeForm('Да / Нет');
