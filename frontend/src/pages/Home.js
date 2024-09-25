@@ -89,7 +89,9 @@ const Home = () => {
                     display: "flex",
                     flexDirection: "column"
                 }}
-                onChange={(event, value) => {setIndex(value); setIndexPage(-1)}}
+                onChange={(event, value) => {
+                    setIndexPage(-1);
+                    setIndex(value); }}
             >
                 <Box sx={{
                     display: "flex",
