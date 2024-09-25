@@ -20,6 +20,8 @@ import LessonEdit from "../components/LessonEdit";
 
 const Home = () => {
     const { height, width } = useWindowDimensions();
+    
+    const [indexPage, setIndexPage] = useState(-1);
     const [user, setUser] = useState();
     const [lessonid, setLessonId] = useState(null);
     const [title, setTitle] = useState();
@@ -178,7 +180,7 @@ const Home = () => {
                                 gap: 2,
                             }}>
                                 <CoursePage navigate={navigate} lessonid={lessonid} getLessonEdit={(id)=>{getLessonEdit(id)}} />
-                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle}></LessonEdit>
+                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle} setIndex={setIndexPage} indexPage={indexPage}></LessonEdit>
                             </Stack>
                         </TabPanel> :
                         <span></span>
