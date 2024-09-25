@@ -180,7 +180,7 @@ const Home = () => {
                                 gap: 2,
                             }}>
                                 <CoursePage navigate={navigate} lessonid={lessonid} getLessonEdit={(id)=>{getLessonEdit(id)}} />
-                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle} setIndex={setIndexPage} indexPage={indexPage}></LessonEdit>
+                                <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle} setIndex={setIndexPage} index={indexPage}></LessonEdit>
                             </Stack>
                         </TabPanel> :
                         <span></span>
