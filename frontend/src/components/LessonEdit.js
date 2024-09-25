@@ -1,6 +1,6 @@
 import { Sheet, Typography } from "@mui/joy"
 import { Box, Button, Input, Stack, Tab, tabClasses, TabList, TabPanel, Tabs } from "@mui/joy"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { AddCircle, Bolt, Delete, Save } from "@mui/icons-material";
 import IconButton from '@mui/joy/IconButton';
@@ -48,6 +48,14 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
     const [trueAnswers, setTrueAnswers] = useState([]);
     const [typeForm, setTypeForm] = React.useState();
     const { width, height } = useWindowDimensions();
+
+
+    useEffect(() => {
+        setAnswers([]);
+        setTrueAnswers([])
+
+        return () => {}
+    }, [])
 
 
     const formTypeHandler = async (value) => {
