@@ -46,7 +46,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle }) => {
     const [value, setValue] = useState();
     const [answers, setAnswers] = useState([]);
     const [trueAnswers, setTrueAnswers] = useState([]);
-    const [typeForm, setTypeForm] = React.useState();
+    const [typeForm, setTypeForm] = useState("");
     const { width, height } = useWindowDimensions();
 
 
