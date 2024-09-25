@@ -48,7 +48,6 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
     const [typeForm, setTypeForm] = useState("");
     const { width, height } = useWindowDimensions();
 
-
     const formTypeHandler = async (value) => {
         if (lesson?.pages[value]?.form?.formType === "YES_OR_NO") {
             setTypeForm('Да / Нет');
@@ -69,7 +68,6 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
             setValue(lesson?.pages[value]?.form?.rightAnswers?.[0] ? lesson?.pages[value]?.form?.rightAnswers?.[0] : 0);
         }
     }
-
 
     const addyPage = async (type, newstep) => {
         if(lesson.pages.length<=0){

@@ -45,7 +45,6 @@ const Home = () => {
                 response.data.pages = response.data.pages.sort((a, b) => (a.stepId > b.stepId) ? 1 : -1);
                 setLesson(response.data);
                 setTitle(response.data.title)
-                setIndexPage(-1);
             }
         } catch (err) {
             console.error(err);
@@ -182,7 +181,9 @@ const Home = () => {
                                 flexGrow: 1,
                                 gap: 2,
                             }}>
-                                <CoursePage navigate={navigate} lessonid={lessonid} getLessonEdit={(id)=>{getLessonEdit(id)}} />
+                                <CoursePage navigate={navigate} lessonid={lessonid} getLessonEdit={(id)=>{
+                setIndexPage(-1);
+                getLessonEdit(id);}} />
                                 <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle} setIndex={setIndexPage} index={indexPage}></LessonEdit>
                             </Stack>
                         </TabPanel> :
