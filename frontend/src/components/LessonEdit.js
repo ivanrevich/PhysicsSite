@@ -281,7 +281,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                             flexGrow: 0,
                             boxSizing: "border-box",
                         }}>
-                            {index!==-1?
+                            {title.length!==0?
                             <TabList
                                 disableUnderline
                                 defaultValue={0}
