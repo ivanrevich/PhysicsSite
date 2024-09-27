@@ -205,7 +205,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
         updateForm(lesson, index, formType);
     }
 
-    console.log(lesson);
+    console.log(index);
     return (
         <Sheet sx={{ display: "flex", 
             borderRadius: 5, 
@@ -267,7 +267,6 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                         </Stack>:<span></span>
                         }
                     </Stack>
-                    
                     <Tabs aria-label="tabs"
                         value={index}
                         defaultValue={-1}
@@ -281,6 +280,8 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                             display: "flex",
                             flexGrow: 1,
                         }}>
+                            
+                    {lesson!=null?
                         <Box sx={{
                             px: 0.5,
                             bgcolor: 'background.level1',
@@ -333,8 +334,9 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 </Dropdown>
                             </TabList>:<span></span>}
                         </Box>
-                        {lesson!=null? 
-                        <div>{lesson?.pages?.length
+                        :<span></span>
+                        }
+                        {lesson?.pages?.length
                             ? (<div style={{ display: "flex", height: "100%" }}>
                                 {lesson?.pages?.map((el, idx) => (
                                     <span style={idx === index ? { flexGrow: 1, display: "flex", padding: 0 } : { flexGrow: 0, display: "flex", padding: 0 }}>
@@ -393,9 +395,8 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 ))}
                             </div>
                             ) : <Stack direction={"row"} sx={{ gap: 1, flexGrow: 1, display: "flex" }}><p>Добавьте новую страницу сюда с помощью +</p></Stack>
-                        }</div>
-                        :<span></span>
                         }
+
                     </Tabs>
                 </Stack>
                 : <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
