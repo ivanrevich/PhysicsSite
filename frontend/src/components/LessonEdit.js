@@ -71,7 +71,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
 
     const addyPage = async (type, newstep) => {
         if(lesson.pages.length<=0){
-            newstep=1;
+            newstep=0;
         }
         const response = await axiosPrivate.post(`/api/v1/page/add`,
             JSON.stringify({
@@ -95,7 +95,11 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
 
         lesson.pages = updatedPages;    
         setLesson(lesson);
-        setIndex(newstep-1);
+        if(newstep!=0){
+            setIndex(newstep-1);
+        }else{
+            setIndex(newstep);
+        }
     }
 
     const delPage = async (id) => {
