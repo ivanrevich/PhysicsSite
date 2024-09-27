@@ -81,7 +81,6 @@ public class LessonService {
         List<Level> levels = (levelRepository.findAll().stream()
                 .filter(it->it.getStepId()>level.getStepId()))
                 .peek(it->it.setStepId(it.getStepId()-1)).toList();
-        levelRepository.deleteById(id);
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
                 // Remove references from users
@@ -93,6 +92,7 @@ public class LessonService {
                 }
             }
         }
+        levelRepository.deleteById(id);
         levelRepository.saveAll(levels);
     }
 
