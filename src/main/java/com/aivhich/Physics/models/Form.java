@@ -31,14 +31,14 @@ public class Form {
 
     //////////////////////////////////////////////////////////
     @JsonIgnore
-    @OneToMany(mappedBy = "form", orphanRemoval = true)
+    @OneToMany(mappedBy = "form")
     List<Page> pages;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "userDoCorrectly")
+    @ManyToMany(mappedBy = "userDoCorrectly", cascade = CascadeType.ALL)
     Set<User> usersDoCorrectly;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "userDoNotCorrectly")
+    @ManyToMany(mappedBy = "userDoNotCorrectly", cascade = CascadeType.ALL)
     Set<User> usersDoNotCorrectly;
 }

@@ -79,14 +79,14 @@ public class User implements UserDetails {
     private Set<Page> passedPages = Collections.emptySet();
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "userDoCorrectly",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "form_id"))
     private Set<Form> userDoCorrectly = Collections.emptySet();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "userDoNotCorrectly",
             joinColumns = @JoinColumn(name = "user_id"),
