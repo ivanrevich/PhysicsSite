@@ -78,17 +78,23 @@ public class LessonService {
 
     public void deleteLvl(UUID id) {
         Level level = levelRepository.findById(id).orElseThrow();
-        List<Level> levels = (levelRepository.findAll().stream()
-                .filter(it->it.getStepId()>level.getStepId()))
-                .peek(it->it.setStepId(it.getStepId()-1)).toList();
+        List<Level> levels = levelRepository.findAll().stream()
+                .filter(it -> it.getStepId() > level.getStepId())
+                .peek(it -> it.setStepId(it.getStepId() - 1))
+                .toList();
 
-        Set<User> users = new HashSet<>(Collections.emptySet());
-        Set<Form> forms = new HashSet<>(Collections.emptySet());
+        Set<User> users = new HashSet<>();
+        Set<Form> forms = new HashSet<>();
 
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
+                // Удаляем ссылки на форму из страниц
+                page.setForm(null); // Или удалите страницу, если это необходимо
+                pagesRepository.save(page); // Сохраните изменения
+
                 forms.add(page.getForm());
-                // Remove references from users
+
+                // Удаляем ссылки на страницы у пользователей
                 for (User user : page.getUsersPassed()) {
                     Set<Page> pages = user.getPassedPages();
                     pages.remove(page);
@@ -106,13 +112,16 @@ public class LessonService {
             }
             users.addAll(lesson.getUsersPassed());
         }
-        formsRepository.deleteAll(forms);
-        for(User user : users){
+
+        formsRepository.deleteAll(forms); // Удаляем формы после очистки ссылок
+
+        for (User user : users) {
             Set<Lesson> lessons = user.getPassedLessons();
             level.getLessons().forEach(lessons::remove);
             user.setPassedLessons(lessons);
             userRepository.save(user);
         }
+
         levelRepository.deleteById(id);
         levelRepository.saveAll(levels);
     }
