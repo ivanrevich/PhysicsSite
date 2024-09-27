@@ -81,6 +81,7 @@ public class LessonService {
         List<Level> levels = (levelRepository.findAll().stream()
                 .filter(it->it.getStepId()>level.getStepId()))
                 .peek(it->it.setStepId(it.getStepId()-1)).toList();
+        Set<User> users = new HashSet<>(Collections.emptySet());
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
                 // Remove references from users
@@ -91,6 +92,13 @@ public class LessonService {
                     userRepository.save(user);
                 }
             }
+            users.addAll(lesson.getUsersPassed());
+        }
+        for(User user : users){
+            Set<Lesson> lessons = user.getPassedLessons();
+            level.getLessons().forEach(lessons::remove);
+            user.setPassedLessons(lessons);
+            userRepository.save(user);
         }
         levelRepository.deleteById(id);
         levelRepository.saveAll(levels);
