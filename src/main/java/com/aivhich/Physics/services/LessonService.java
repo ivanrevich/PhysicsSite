@@ -79,7 +79,8 @@ public class LessonService {
     public void deleteLvl(UUID id) {
         Level level = levelRepository.findById(id).orElseThrow();
         List<Level> levels = (levelRepository.findAll().stream()
-                .filter(it->it.getStepId()>level.getStepId())).peek(it->it.setStepId(it.getStepId()-1)).toList();
+                .filter(it->it.getStepId()>level.getStepId()))
+                .peek(it->it.setStepId(it.getStepId()-1)).toList();
         levelRepository.deleteById(id);
         levelRepository.saveAll(levels);
     }

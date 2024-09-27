@@ -71,7 +71,7 @@ public class User implements UserDetails {
     private Set<Lesson> passedLessons = Collections.emptySet();
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "passedPages",
             joinColumns = @JoinColumn(name = "user_id"),

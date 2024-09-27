@@ -43,8 +43,6 @@ public class Page {
     Form form;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "passedPages",
-            cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
-    fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "passedPages", fetch = FetchType.LAZY)
     Set<User> usersPassed = Collections.emptySet();
 }
