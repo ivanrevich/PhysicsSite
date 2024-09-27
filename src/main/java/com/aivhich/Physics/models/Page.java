@@ -44,7 +44,7 @@ public class Page {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "passedPages",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
+            cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
     fetch = FetchType.EAGER)
     Set<User> usersPassed = Collections.emptySet();
 }
