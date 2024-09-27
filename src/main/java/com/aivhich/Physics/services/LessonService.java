@@ -130,10 +130,9 @@ public class LessonService {
         List<Lesson> lessons = ((lessonRepository.findAll().stream()
                 .filter(it->it.getLevel().getId()==lesson.getLevel().getId()))
                 .filter(it->it.getStepId()>lesson.getStepId())).peek(it->it.setStepId(it.getStepId()-1)).toList();
+        lessonRepository.saveAll(lessons);
 
-
-
-
+        Set<User> usersPassed = lesson.getUsersPassed();
         Set<Form> forms = new HashSet<>();
 
         for (Page page : lesson.getPages()) {
@@ -158,18 +157,14 @@ public class LessonService {
             page.setForm(null); // Или удалите страницу, если это необходимо
             pagesRepository.save(page); // Сохраните изменения
         }
-
-        for(User user : lesson.getUsersPassed()){
-            Set<Lesson> userPassedLessons = user.getPassedLessons();
-            userPassedLessons.remove(lesson);
-            user.setPassedLessons(userPassedLessons);
+        formsRepository.deleteAll(forms);
+        for(User user: usersPassed){
+            Set<Lesson> userPassed = user.getPassedLessons();
+            userPassed.remove(lesson);
             userRepository.save(user);
         }
 
-        formsRepository.deleteAll(forms);
-
         lessonRepository.deleteById(id);
-        lessonRepository.saveAll(lessons);
     }
 
     public Page createNewPage(UUID lessonId, InfoType infoType, Long stepid) {
