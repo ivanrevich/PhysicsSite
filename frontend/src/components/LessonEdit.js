@@ -205,7 +205,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
         updateForm(lesson, index, formType);
     }
 
-    console.log(index);
+    console.log(lesson);
     return (
         <Sheet sx={{ display: "flex", 
             borderRadius: 5, 
