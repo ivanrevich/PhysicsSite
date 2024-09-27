@@ -44,6 +44,11 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/statistics")
+    public ResponseEntity<?> getStatistics(Principal principal){
+        return ResponseEntity.ok(service.getStatistics(principal));
+    }
+
     @GetMapping("/getAll")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getUsers(@RequestParam("page") int page) {

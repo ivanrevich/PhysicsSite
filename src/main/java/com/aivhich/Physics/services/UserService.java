@@ -5,9 +5,12 @@ import com.aivhich.Physics.auth.dto.UserDto;
 import com.aivhich.Physics.auth.dto.request.ChangePasswordRequest;
 import com.aivhich.Physics.auth.models.User;
 import com.aivhich.Physics.dto.response.LeaderUsersResponse;
+import com.aivhich.Physics.dto.response.StatisticsResponse;
 import com.aivhich.Physics.models.Course;
+import com.aivhich.Physics.models.InfoType;
 import com.aivhich.Physics.models.Lesson;
 import com.aivhich.Physics.models.Page;
+import com.aivhich.Physics.repository.LessonRepository;
 import com.aivhich.Physics.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +31,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository repository;
+    private final LessonRepository lessonRepository;
 
 
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
@@ -130,5 +134,24 @@ public class UserService {
     public void delete(Principal principal) {
         var user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         repository.delete(user);
+    }
+
+    public StatisticsResponse getStatistics(Principal principal) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+
+        Long points = user.getPassedPages()
+                .stream()
+                .map(Page::getPoints)
+                .flatMapToLong(it -> LongStream.of(it.longValue()))
+                .sum();
+
+        Long answerTasks = user.getPassedPages().stream().filter(it->it.getInfoType() == InfoType.TASK).count();
+
+        int courseProgress = (int)(((float) user.getPassedLessons().size())/((float)lessonRepository.findAll().size()))*100;
+        return StatisticsResponse.builder()
+                .points(points)
+                .courseProgress(courseProgress)
+                .answerTasks(answerTasks)
+                .build();
     }
 }
