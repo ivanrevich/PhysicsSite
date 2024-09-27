@@ -125,18 +125,20 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
     }
 
     const updateTitleLesson = async (lesson_id, title) => {
-        await axiosPrivate.put(`/api/v1/lessons/update-title`,
-            JSON.stringify({
-                id: lesson_id,
-                title: title
-            }),
-            {
-                headers: { 
-                    'Content-Type': 'application/json', 
-                } 
-            }
-        );
-        setTitle(title);
+        if(title!=""){
+            await axiosPrivate.put(`/api/v1/lessons/update-title`,
+                JSON.stringify({
+                    id: lesson_id,
+                    title: title
+                }),
+                {
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                    } 
+                }
+            );
+            setTitle(title);
+        }
     }
 
     const updateForm = async (lesson, index, formType) => {

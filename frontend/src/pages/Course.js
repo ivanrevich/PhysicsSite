@@ -37,21 +37,23 @@ const CoursePage = ({ navigate, getLessonEdit, setTitle, setIndex}) => {
     }, [])
 
     const handleAddingLvl = async () => {
-        setAddBtnLoading(true)
-        try {
-            const response = await axiosPrivate.post("/api/v1/lvl",
-                JSON.stringify({ title: lvlTitle }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    // withCredentials: true
+        if(lvlTitle!=""){
+            setAddBtnLoading(true)
+            try {
+                const response = await axiosPrivate.post("/api/v1/lvl",
+                    JSON.stringify({ title: lvlTitle }),
+                    {
+                        headers: { 'Content-Type': 'application/json' },
+                        // withCredentials: true
+                    }
+                );
+                setLvlTitle("");
+                if (response.data != null) {
+                    setLvls([...lvls, response.data])
                 }
-            );
-            setLvlTitle("");
-            if (response.data != null) {
-                setLvls([...lvls, response.data])
+            } finally {
+                setAddBtnLoading(false)
             }
-        } finally {
-            setAddBtnLoading(false)
         }
     }
 
@@ -102,21 +104,23 @@ const CoursePage = ({ navigate, getLessonEdit, setTitle, setIndex}) => {
     }
 
     const handleAddingLesson = async (level, newLessonName) => {
-        const response = await axiosPrivate.post("/api/v1/lessons/create",
-            JSON.stringify({ title: newLessonName, levelid: level.id }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                // withCredentials: true
+        if(newLessonName!=""){
+            const response = await axiosPrivate.post("/api/v1/lessons/create",
+                JSON.stringify({ title: newLessonName, levelid: level.id }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    // withCredentials: true
+                }
+            )
+            const out = lvls.map(el => {
+                if (el.id === level.id && response.data != null) {
+                    el.lessons.push(response?.data);
+                }
+                return el;
             }
-        )
-        const out = lvls.map(el => {
-            if (el.id === level.id && response.data != null) {
-                el.lessons.push(response?.data);
-            }
-            return el;
+            )
+            setLvls(out);
         }
-        )
-        setLvls(out);
     }
 
 
