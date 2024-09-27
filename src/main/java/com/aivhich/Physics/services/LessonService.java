@@ -131,11 +131,7 @@ public class LessonService {
                 .filter(it->it.getLevel().getId()==lesson.getLevel().getId()))
                 .filter(it->it.getStepId()>lesson.getStepId())).peek(it->it.setStepId(it.getStepId()-1)).toList();
 
-        for(User user : lesson.getUsersPassed()){
-            Set<Lesson> userPassedLessons = user.getPassedLessons();
-            userPassedLessons.remove(lesson);
-            user.setPassedLessons(userPassedLessons);
-        }
+
 
 
         Set<Form> forms = new HashSet<>();
@@ -163,6 +159,12 @@ public class LessonService {
             pagesRepository.save(page); // Сохраните изменения
         }
 
+        for(User user : lesson.getUsersPassed()){
+            Set<Lesson> userPassedLessons = user.getPassedLessons();
+            userPassedLessons.remove(lesson);
+            user.setPassedLessons(userPassedLessons);
+            userRepository.save(user);
+        }
 
         formsRepository.deleteAll(forms);
 
