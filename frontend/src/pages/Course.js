@@ -95,7 +95,6 @@ const CoursePage = ({ navigate, getLessonEdit }) => {
             return el;
         });
         setLvls(out);
-        window.location.reload(false);
     }
 
     const handleAddingLesson = async (level, newLessonName) => {
