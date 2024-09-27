@@ -130,6 +130,42 @@ public class LessonService {
         List<Lesson> lessons = ((lessonRepository.findAll().stream()
                 .filter(it->it.getLevel().getId()==lesson.getLevel().getId()))
                 .filter(it->it.getStepId()>lesson.getStepId())).peek(it->it.setStepId(it.getStepId()-1)).toList();
+
+        for(User user : lesson.getUsersPassed()){
+            Set<Lesson> userPassedLessons = user.getPassedLessons();
+            userPassedLessons.remove(lesson);
+            user.setPassedLessons(userPassedLessons);
+        }
+
+
+        Set<Form> forms = new HashSet<>();
+
+        for (Page page : lesson.getPages()) {
+            // Удаляем ссылки на форму из страниц
+            forms.add(page.getForm());
+
+            // Удаляем ссылки на страницы у пользователей
+            for (User user : page.getUsersPassed()) {
+                Set<Page> pages = user.getPassedPages();
+                pages.remove(page);
+                user.setPassedPages(pages);
+
+                Set<Form> doCorr = user.getUserDoCorrectly();
+                Set<Form> doNotCorr = user.getUserDoNotCorrectly();
+                doCorr.remove(page.getForm());
+                doNotCorr.remove(page.getForm());
+                user.setUserDoNotCorrectly(doNotCorr);
+                user.setUserDoCorrectly(doCorr);
+
+                userRepository.save(user);
+            }
+            page.setForm(null); // Или удалите страницу, если это необходимо
+            pagesRepository.save(page); // Сохраните изменения
+        }
+
+
+        formsRepository.deleteAll(forms);
+
         lessonRepository.deleteById(id);
         lessonRepository.saveAll(lessons);
     }
