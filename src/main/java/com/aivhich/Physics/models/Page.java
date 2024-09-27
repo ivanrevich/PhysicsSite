@@ -35,7 +35,7 @@ public class Page {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "lesson_id")
+    @JoinColumn(name = "lesson_id", nullable = false)
     Lesson lesson;
 
     @ManyToOne(fetch = FetchType.EAGER)
