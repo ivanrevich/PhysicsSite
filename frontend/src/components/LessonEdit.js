@@ -95,7 +95,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
 
         lesson.pages = updatedPages;    
         setLesson(lesson);
-        setIndex(newstep);
+        setIndex(newstep-1);
     }
 
     const delPage = async (id) => {
