@@ -260,6 +260,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                         </Stack>:<span></span>
                         }
                     </Stack>
+                    
                     <Tabs aria-label="tabs"
                         value={index}
                         defaultValue={-1}
@@ -280,6 +281,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                             flexGrow: 0,
                             boxSizing: "border-box",
                         }}>
+                            {index!==-1?
                             <TabList
                                 disableUnderline
                                 defaultValue={0}
@@ -322,7 +324,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                         </MenuItem>
                                     </Menu>
                                 </Dropdown>
-                            </TabList>
+                            </TabList>:<span></span>}
                         </Box>
                         {lesson?.pages?.length
                             ? (<div style={{ display: "flex", height: "100%" }}>
