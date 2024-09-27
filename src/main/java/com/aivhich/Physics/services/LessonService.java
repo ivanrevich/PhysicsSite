@@ -86,7 +86,9 @@ public class LessonService {
             for (Page page : lesson.getPages()) {
                 // Remove references from users
                 for (User user : page.getUsersPassed()) {
-                    user.getPassedPages().remove(page);
+                    Set<Page> pages = user.getPassedPages();
+                    pages.remove(page);
+                    user.setPassedPages(pages);
                     userRepository.save(user);
                 }
             }
