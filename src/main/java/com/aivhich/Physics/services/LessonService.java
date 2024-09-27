@@ -77,8 +77,7 @@ public class LessonService {
     }
 
     public void deleteLvl(UUID id) {
-        Level level = levelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Level not found"));
-
+        Level level = levelRepository.findById(id).orElseThrow();
         List<Level> levels = levelRepository.findAll().stream()
                 .filter(it -> it.getStepId() > level.getStepId())
                 .peek(it -> it.setStepId(it.getStepId() - 1))
@@ -89,52 +88,42 @@ public class LessonService {
 
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
-                if (page != null) { // Проверка на null
-                    page.setForm(null); // Или удалите страницу, если это необходимо
-                    pagesRepository.save(page); // Сохраните изменения
+                // Удаляем ссылки на форму из страниц
+                forms.add(page.getForm());
 
-                    if (page.getForm() != null) { // Проверка на null
-                        forms.add(page.getForm());
+                // Удаляем ссылки на страницы у пользователей
+                for (User user : page.getUsersPassed()) {
+                    Set<Page> pages = user.getPassedPages();
+                    pages.remove(page);
+                    user.setPassedPages(pages);
 
-                        for (User user : page.getUsersPassed()) {
-                            if (user != null) { // Проверка на null
-                                Set<Page> pages = user.getPassedPages();
-                                pages.remove(page);
-                                user.setPassedPages(pages);
+                    Set<Form> doCorr = user.getUserDoCorrectly();
+                    Set<Form> doNotCorr = user.getUserDoNotCorrectly();
+                    doCorr.remove(page.getForm());
+                    doNotCorr.remove(page.getForm());
+                    user.setUserDoNotCorrectly(doNotCorr);
+                    user.setUserDoCorrectly(doCorr);
 
-                                Set<Form> doCorr = user.getUserDoCorrectly();
-                                Set<Form> doNotCorr = user.getUserDoNotCorrectly();
-                                doCorr.remove(page.getForm());
-                                doNotCorr.remove(page.getForm());
-                                user.setUserDoNotCorrectly(doNotCorr);
-                                user.setUserDoCorrectly(doCorr);
-
-                                userRepository.save(user); // Проверка перед сохранением
-                            }
-                        }
-                    }
+                    userRepository.save(user);
                 }
+                page.setForm(null); // Или удалите страницу, если это необходимо
+                pagesRepository.save(page); // Сохраните изменения
             }
             users.addAll(lesson.getUsersPassed());
         }
 
-        // Удаляем формы после очистки ссылок
-        forms.removeIf(Objects::isNull); // Удаляем null элементы из forms
-        formsRepository.deleteAll(forms);
+        formsRepository.deleteAll(forms); // Удаляем формы после очистки ссылок
 
         for (User user : users) {
-            if (user != null) { // Проверка на null
-                Set<Lesson> lessons = user.getPassedLessons();
-                level.getLessons().forEach(lessons::remove);
-                user.setPassedLessons(lessons);
-                userRepository.save(user); // Проверка перед сохранением
-            }
+            Set<Lesson> lessons = user.getPassedLessons();
+            level.getLessons().forEach(lessons::remove);
+            user.setPassedLessons(lessons);
+            userRepository.save(user);
         }
 
         levelRepository.deleteById(id);
         levelRepository.saveAll(levels);
     }
-
 
     public void deleteLesson(UUID id) {
         Lesson lesson = lessonRepository.findById(id).orElseThrow();
