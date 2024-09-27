@@ -31,7 +31,7 @@ public class Form {
 
     //////////////////////////////////////////////////////////
     @JsonIgnore
-    @OneToMany(mappedBy = "form")
+    @OneToMany(mappedBy = "form", orphanRemoval = true)
     List<Page> pages;
 
     @JsonIgnore
