@@ -199,7 +199,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
         updateForm(lesson, index, formType);
     }
 
-
+    console.log(index);
     return (
         <Sheet sx={{ display: "flex", 
             borderRadius: 5, 
@@ -228,7 +228,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 flexGrow: 1, fontWeight: 600, fontSize: 22, px: 1,
                             }}
                             value={title} onChange={(e) => setTitle(e.target.value)}></Input>
-                        console.log(index);
+                        
                         {index!==-1?
                         <Stack direction={"row"} sx={{ gap: 1,}}>
                             <Input
