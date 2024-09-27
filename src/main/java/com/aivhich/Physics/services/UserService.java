@@ -118,7 +118,7 @@ public class UserService {
                 .filter(it -> it.getTimestamp() > epochMilli)
                 .map(Page::getPoints)
                 .flatMapToLong(it -> LongStream.of(it.longValue()))
-                .sum();
+                .sum()+1;
         return LeaderUsersResponse.builder()
                 .userPoints(usersPoints)
                 .points(points)
