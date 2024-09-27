@@ -182,6 +182,7 @@ public class LessonService {
         Page page = Page.builder()
                 .lesson(lesson)
                 .stepId(stepid)
+                .points(0)
                 .infoType(infoType)
                 .build();
         List<Page> pages = ((pagesRepository.findAll().stream()

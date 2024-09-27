@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { AddCircle } from "@mui/icons-material";
 import useWindowDimensions from "../hooks/useWindowDimentions";
 
-const CoursePage = ({ navigate, getLessonEdit }) => {
+const CoursePage = ({ navigate, getLessonEdit, setTitle, setIndex}) => {
     const axiosPrivate = useAxiosPrivate();
     const [lvlTitle, setLvlTitle] = useState('');
     const [lvls, setLvls] = useState();
@@ -73,6 +73,8 @@ const CoursePage = ({ navigate, getLessonEdit }) => {
                 el.id !== level.id
             )
         )
+        setIndex(-1);
+        setTitle("");
     }
 
     const handleDeleteLesson = async (lesson_id) => {
@@ -95,6 +97,8 @@ const CoursePage = ({ navigate, getLessonEdit }) => {
             return el;
         });
         setLvls(out);
+        setIndex(-1);
+        setTitle("");
     }
 
     const handleAddingLesson = async (level, newLessonName) => {

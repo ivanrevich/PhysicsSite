@@ -181,9 +181,18 @@ const Home = () => {
                                 flexGrow: 1,
                                 gap: 2,
                             }}>
-                                <CoursePage navigate={navigate} lessonid={lessonid} getLessonEdit={(id)=>{
-                setIndexPage(-1);
-                getLessonEdit(id);}} />
+                                <CoursePage 
+                                setTitle={setTitle} 
+                                setIndex={setIndexPage}
+                                navigate={navigate} 
+                                lessonid={lessonid} 
+                                    getLessonEdit={
+                                        (id)=>{
+                                            setIndexPage(-1);
+                                            getLessonEdit(id);
+                                        }
+                                    }
+                                />
                                 <LessonEdit lesson={lesson} title={title} setLesson={setLesson} setTitle={setTitle} setIndex={setIndexPage} index={indexPage}></LessonEdit>
                             </Stack>
                         </TabPanel> :
