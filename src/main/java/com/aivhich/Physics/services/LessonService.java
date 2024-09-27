@@ -84,8 +84,10 @@ public class LessonService {
 
         Set<User> users = new HashSet<>(Collections.emptySet());
         Set<Form> forms = new HashSet<>(Collections.emptySet());
+
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
+                forms.add(page.getForm());
                 // Remove references from users
                 for (User user : page.getUsersPassed()) {
                     Set<Page> pages = user.getPassedPages();
@@ -101,7 +103,6 @@ public class LessonService {
 
                     userRepository.save(user);
                 }
-                forms.add(page.getForm());
             }
             users.addAll(lesson.getUsersPassed());
         }

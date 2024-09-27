@@ -31,9 +31,7 @@ public class Form {
 
     //////////////////////////////////////////////////////////
     @JsonIgnore
-    @OneToMany(mappedBy = "form",
-            orphanRemoval = true,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "form")
     List<Page> pages;
 
     @JsonIgnore
