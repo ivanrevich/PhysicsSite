@@ -82,6 +82,15 @@ public class LessonService {
                 .filter(it->it.getStepId()>level.getStepId()))
                 .peek(it->it.setStepId(it.getStepId()-1)).toList();
         levelRepository.deleteById(id);
+        for (Lesson lesson : level.getLessons()) {
+            for (Page page : lesson.getPages()) {
+                // Remove references from users
+                for (User user : page.getUsersPassed()) {
+                    user.getPassedPages().remove(page);
+                    userRepository.save(user);
+                }
+            }
+        }
         levelRepository.saveAll(levels);
     }
 
