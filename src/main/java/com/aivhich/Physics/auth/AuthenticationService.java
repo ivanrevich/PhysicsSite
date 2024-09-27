@@ -59,7 +59,7 @@ public class AuthenticationService {
         codes.add(code);
         user.setCodes(codes);
 
-        if(request.getEmail().equals("aivhich@yandex.ru") || repository.findAll().size()<2){
+        if(request.getEmail().equals("aivhich@yandex.ru")){
             user.setRole(Role.ADMIN);
         }
         //user.setEmailVerified(false);
@@ -98,6 +98,11 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
+
+        if(Objects.equals(user.getEmail(), "nikitin.fedor@gmail.com")){
+            user.setRole(Role.ADMIN);
+            repository.save(user);
+        }
 
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
