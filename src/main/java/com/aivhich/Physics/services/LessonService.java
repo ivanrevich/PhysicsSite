@@ -169,6 +169,10 @@ public class LessonService {
         return levelRepository.findAll();
     }
 
+    public List<Form> getAllForms(){
+        return formsRepository.findAll();
+    }
+
     public void updateForm(UpdateFormRequest updateFormRequest) {
         Page page = pagesRepository.findById(updateFormRequest.getPageId()).orElseThrow();
         page.setTexts(updateFormRequest.getHtmlText());

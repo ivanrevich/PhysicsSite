@@ -32,6 +32,6 @@ public class ApiController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getall(){
-        return ResponseEntity.ok(lessonService.getAllLesson().toString()+" "+lessonService.getAllLvls().toString()+" "+lessonService.getAllPages().toString());
+        return ResponseEntity.ok(lessonService.getAllLesson().toString()+" "+lessonService.getAllLvls().toString()+" "+lessonService.getAllPages().toString()+" "+lessonService.getAllForms().toString());
     }
 }
