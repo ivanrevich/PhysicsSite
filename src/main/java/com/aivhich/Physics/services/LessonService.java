@@ -83,6 +83,7 @@ public class LessonService {
                 .peek(it->it.setStepId(it.getStepId()-1)).toList();
 
         Set<User> users = new HashSet<>(Collections.emptySet());
+        Set<Form> forms = new HashSet<>(Collections.emptySet());
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
                 // Remove references from users
@@ -100,10 +101,11 @@ public class LessonService {
 
                     userRepository.save(user);
                 }
-                formsRepository.delete(page.getForm());
+                forms.add(page.getForm());
             }
             users.addAll(lesson.getUsersPassed());
         }
+        formsRepository.deleteAll(forms);
         for(User user : users){
             Set<Lesson> lessons = user.getPassedLessons();
             level.getLessons().forEach(lessons::remove);
