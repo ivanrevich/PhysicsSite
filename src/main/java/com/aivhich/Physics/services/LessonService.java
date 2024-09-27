@@ -91,6 +91,7 @@ public class LessonService {
                     user.setPassedPages(pages);
                     userRepository.save(user);
                 }
+                formsRepository.delete(page.getForm());
             }
             users.addAll(lesson.getUsersPassed());
         }
