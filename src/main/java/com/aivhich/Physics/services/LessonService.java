@@ -89,7 +89,10 @@ public class LessonService {
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
                 // Удаляем ссылки на форму из страниц
-                forms.add(page.getForm());
+
+                if(page.getForm()!=null) {
+                    forms.add(page.getForm());
+                }
 
                 // Удаляем ссылки на страницы у пользователей
                 for (User user : page.getUsersPassed()) {
@@ -97,12 +100,14 @@ public class LessonService {
                     pages.remove(page);
                     user.setPassedPages(pages);
 
-                    Set<Form> doCorr = user.getUserDoCorrectly();
-                    Set<Form> doNotCorr = user.getUserDoNotCorrectly();
-                    doCorr.remove(page.getForm());
-                    doNotCorr.remove(page.getForm());
-                    user.setUserDoNotCorrectly(doNotCorr);
-                    user.setUserDoCorrectly(doCorr);
+                    if(page.getForm()!=null) {
+                        Set<Form> doCorr = user.getUserDoCorrectly();
+                        Set<Form> doNotCorr = user.getUserDoNotCorrectly();
+                        doCorr.remove(page.getForm());
+                        doNotCorr.remove(page.getForm());
+                        user.setUserDoNotCorrectly(doNotCorr);
+                        user.setUserDoCorrectly(doCorr);
+                    }
 
                     userRepository.save(user);
                 }
@@ -137,7 +142,10 @@ public class LessonService {
 
         for (Page page : lesson.getPages()) {
             // Удаляем ссылки на форму из страниц
-            forms.add(page.getForm());
+
+            if(page.getForm()!=null) {
+                forms.add(page.getForm());
+            }
 
             // Удаляем ссылки на страницы у пользователей
             for (User user : page.getUsersPassed()) {
@@ -145,13 +153,14 @@ public class LessonService {
                 pages.remove(page);
                 user.setPassedPages(pages);
 
-                Set<Form> doCorr = user.getUserDoCorrectly();
-                Set<Form> doNotCorr = user.getUserDoNotCorrectly();
-                doCorr.remove(page.getForm());
-                doNotCorr.remove(page.getForm());
-                user.setUserDoNotCorrectly(doNotCorr);
-                user.setUserDoCorrectly(doCorr);
-
+                if(page.getForm()!=null) {
+                    Set<Form> doCorr = user.getUserDoCorrectly();
+                    Set<Form> doNotCorr = user.getUserDoNotCorrectly();
+                    doCorr.remove(page.getForm());
+                    doNotCorr.remove(page.getForm());
+                    user.setUserDoNotCorrectly(doNotCorr);
+                    user.setUserDoCorrectly(doCorr);
+                }
                 userRepository.save(user);
             }
             page.setForm(null); // Или удалите страницу, если это необходимо
