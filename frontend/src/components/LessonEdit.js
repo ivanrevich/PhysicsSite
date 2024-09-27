@@ -267,6 +267,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                         </Stack>:<span></span>
                         }
                     </Stack>
+                    {lesson!=null?
                     <Tabs aria-label="tabs"
                         value={index}
                         defaultValue={-1}
@@ -281,7 +282,6 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                             flexGrow: 1,
                         }}>
                             
-                    {lesson!=null?
                         <Box sx={{
                             px: 0.5,
                             bgcolor: 'background.level1',
@@ -334,8 +334,6 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 </Dropdown>
                             </TabList>:<span></span>}
                         </Box>
-                        :<span></span>
-                        }
                         {lesson?.pages?.length
                             ? (<div style={{ display: "flex", height: "100%" }}>
                                 {lesson?.pages?.map((el, idx) => (
@@ -398,6 +396,9 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                         }
 
                     </Tabs>
+                    
+                    :<span></span>
+                }
                 </Stack>
                 : <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                     Выберете задание в меню слева
