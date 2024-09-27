@@ -81,6 +81,7 @@ public class LessonService {
         List<Level> levels = (levelRepository.findAll().stream()
                 .filter(it->it.getStepId()>level.getStepId()))
                 .peek(it->it.setStepId(it.getStepId()-1)).toList();
+
         Set<User> users = new HashSet<>(Collections.emptySet());
         for (Lesson lesson : level.getLessons()) {
             for (Page page : lesson.getPages()) {
@@ -89,6 +90,14 @@ public class LessonService {
                     Set<Page> pages = user.getPassedPages();
                     pages.remove(page);
                     user.setPassedPages(pages);
+
+                    Set<Form> doCorr = user.getUserDoCorrectly();
+                    Set<Form> doNotCorr = user.getUserDoNotCorrectly();
+                    doCorr.remove(page.getForm());
+                    doNotCorr.remove(page.getForm());
+                    user.setUserDoNotCorrectly(doNotCorr);
+                    user.setUserDoCorrectly(doCorr);
+
                     userRepository.save(user);
                 }
                 formsRepository.delete(page.getForm());
