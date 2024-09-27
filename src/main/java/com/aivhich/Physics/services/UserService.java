@@ -118,11 +118,11 @@ public class UserService {
                 .filter(it -> it.getTimestamp() > epochMilli)
                 .map(Page::getPoints)
                 .flatMapToLong(it -> LongStream.of(it.longValue()))
-                .sum()+1;
+                .sum();
         return LeaderUsersResponse.builder()
                 .userPoints(usersPoints)
                 .points(points)
-                .place(place)
+                .place(place+1)
                 .users(users.subList(Math.max((users.size() - 100), 0), users.size()))
                 .build();
     }
