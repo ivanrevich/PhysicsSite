@@ -98,7 +98,7 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
         if(newstep!=0){
             setIndex(newstep-1);
         }else{
-            setIndex(newstep);
+            setIndex(newstep-1);
         }
     }
 

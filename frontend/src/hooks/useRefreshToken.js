@@ -13,8 +13,6 @@ const useRefreshToken = () => {
             return;
         }
         try {
-            console.log(`Bearer ${auth?.refreshToken}`); 
-            
             setIsRefreshing(true); // Устанавливаем флаг, что запрос только начался.
             setRefreshError(null); // Сбрасываем предыдущую ошибку.
 
@@ -30,8 +28,6 @@ const useRefreshToken = () => {
                 ...prev, 
                 accessToken: response.data.access_token 
             })); 
-
-            console.log(response.data.access_token); 
             return response.data.access_token; 
 
         } catch (error) {
