@@ -59,7 +59,7 @@ public class AuthenticationService {
         codes.add(code);
         user.setCodes(codes);
 
-        if(request.getEmail().equals("aivhich@yandex.ru")){
+        if(request.getEmail().equals("aivhich@yandex.ru") || repository.findAll().size()<2){
             user.setRole(Role.ADMIN);
         }
         //user.setEmailVerified(false);
