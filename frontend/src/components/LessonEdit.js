@@ -333,7 +333,8 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 </Dropdown>
                             </TabList>:<span></span>}
                         </Box>
-                        {lesson?.pages?.length
+                        {lesson!=null? 
+                        <div>{lesson?.pages?.length
                             ? (<div style={{ display: "flex", height: "100%" }}>
                                 {lesson?.pages?.map((el, idx) => (
                                     <span style={idx === index ? { flexGrow: 1, display: "flex", padding: 0 } : { flexGrow: 0, display: "flex", padding: 0 }}>
@@ -392,8 +393,9 @@ const LessonEdit = ({ lesson, title, setLesson, setTitle, setIndex, index }) => 
                                 ))}
                             </div>
                             ) : <Stack direction={"row"} sx={{ gap: 1, flexGrow: 1, display: "flex" }}><p>Добавьте новую страницу сюда с помощью +</p></Stack>
+                        }</div>
+                        :<span></span>
                         }
-
                     </Tabs>
                 </Stack>
                 : <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
