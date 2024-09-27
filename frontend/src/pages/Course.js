@@ -73,7 +73,7 @@ const CoursePage = ({ navigate, getLessonEdit }) => {
                 el.id !== level.id
             )
         )
-        window.location.reload(true);
+        window.location.reload(false);
     }
 
     const handleDeleteLesson = async (lesson_id) => {
